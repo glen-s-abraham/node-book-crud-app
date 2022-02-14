@@ -1,19 +1,29 @@
-exports.getAllBooks=(req,res,next)=>{
-    res.status(200).json({"book":"get all books"});
+const BookData = require('../model/BookData');
+
+exports.getAllBooks= async (req,res,next)=>{
+    const booksData = await BookData.find();
+    res.status(200).json({"data":booksData});
 }
 
-exports.getBookById = (req,res,next)=>{
-    res.status(200).json({"book":"get single book","id":req.params.id});
+exports.getBookById = async(req,res,next)=>{
+    const bookData = await BookData.findById(req.params.id)
+    res.status(200).json({"data":bookData});
 }
 
-exports.createBook = (req,res,next)=>{
-    res.status(201).json({"book":"create single book"});
+exports.createBook = async (req,res,next)=>{
+    const bookData = await BookData.create(req.body);
+    res.status(201).json({"data":bookData});
 }
 
-exports.updateBook = (req,res,next)=>{
-    res.status(200).json({"book":"update single book"});
+exports.updateBook = async (req,res,next)=>{
+    const bookData = await BookData.findByIdAndUpdate(req.params.id,req.body,{
+        new:true,
+        runValidators:true
+    })
+    res.status(200).json({"data":bookData});
 }
 
-exports.deleteBook = (req,res,next)=>{
-    res.status(200).json({"book":"delete single book"});
+exports.deleteBook = async(req,res,next)=>{
+    await BookData.findByIdAndDelete(req.params.id)
+    res.status(204).json({"data":null});
 }

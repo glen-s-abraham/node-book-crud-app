@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon server.js"
+    "start": "nodemon server.js"
   },
   "author": "glen",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "mongoose": "^6.2.1"
   }
 }
